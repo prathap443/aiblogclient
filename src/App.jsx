@@ -12,7 +12,8 @@ import {
   orderBy,
 } from "firebase/firestore";
 
-import "./style.css";
+// Remove this import as it's already imported in main.jsx
+// import "./style.css";
 
 function App() {
   const [posts, setPosts] = useState([]);

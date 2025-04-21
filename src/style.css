@@ -1,7 +1,8 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-image: url("bg.jpg");
+  /* Update background image path to point to public directory */
+  background-image: url("/bg.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -35,6 +36,11 @@ body {
   font-size: 1rem;
 }
 
+.post-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
 .post-form button {
   background-color: #1976d2;
   color: white;
@@ -43,10 +49,16 @@ body {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.post-form button:hover {
+  background-color: #1565c0;
 }
 
 .post-form button:disabled {
   background-color: #90caf9;
+  cursor: not-allowed;
 }
 
 .posts {
@@ -54,19 +66,60 @@ body {
 }
 
 .post {
-  padding: 1rem;
+  padding: 1.5rem;
   background: #f9f9f9;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   border-radius: 8px;
   border: 1px solid #ddd;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.post:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.post h3 {
+  margin-top: 0;
+  color: #1976d2;
 }
 
 .post .summary {
   font-weight: bold;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.post button {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.post button:hover {
+  text-decoration: underline;
 }
 
 .error {
-  color: red;
+  color: #d32f2f;
   margin-top: -0.5rem;
   margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+/* Add a fallback background color in case the image fails to load */
+@media (max-width: 768px) {
+  body {
+    background: #f0f2f5;
+  }
+  
+  .container {
+    border-radius: 0;
+  }
 }
