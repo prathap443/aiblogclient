@@ -1,12 +1,8 @@
+/* Base styling from the original index.css */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI', Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -15,26 +11,36 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #1976d2;
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: #1565c0;
 }
 
+/* Reset body to use your custom styling */
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f2f5; /* Fallback color */
+  background-image: url("/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* Remove the flex display, height constraints from default Vite */
   min-width: 320px;
+  /* Let the content flow naturally */
+  display: block;
   min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.2em;
   line-height: 1.1;
 }
 
+/* Button styling that works with your custom app */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -42,27 +48,94 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #1976d2;
+  color: white;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
+  background-color: #1565c0;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+/* Import all your custom styling from style.css here */
+.app-background {
+  padding: 2rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.post-form input,
+.post-form textarea {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.post-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.post-form button {
+  background-color: #1976d2;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.post-form button:disabled {
+  background-color: #90caf9;
+  cursor: not-allowed;
+}
+
+.posts {
+  margin-top: 2rem;
+}
+
+.post {
+  padding: 1rem;
+  background: #f9f9f9;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.post .summary {
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    border-radius: 0;
   }
 }
