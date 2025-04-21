@@ -1,6 +1,8 @@
 // src/App.jsx
 import { useState } from "react";
 
+// Remove any Firebase imports
+
 function App() {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
