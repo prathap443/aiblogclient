@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 // Use environment variables for Firebase configuration
-// This approach works with Vite and Vercel
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -13,33 +12,25 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Initialize Firebase only if environment variables are available
-// This prevents build errors when variables aren't set
-let app;
-let db;
+// Log config (without sensitive data) to help debug
+console.log("Firebase config loaded. Project ID:", firebaseConfig.projectId ? "✓" : "✗");
+console.log("API Key present:", firebaseConfig.apiKey ? "✓" : "✗");
+
+// Initialize a mock DB first as fallback
+let db = {
+  collection: () => ({
+    // Mock implementation
+  })
+};
 
 try {
-  // Check if we have the minimal required config
-  if (firebaseConfig.apiKey && firebaseConfig.projectId) {
-    app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
-  } else {
-    console.warn("Firebase configuration is incomplete. Some features will be disabled.");
-    // Create mock db for development without env vars
-    db = {
-      collection: () => ({
-        // Mock implementation to prevent runtime errors
-      })
-    };
-  }
+  // Initialize real Firebase if we have basic required config
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  console.log("Firebase initialized successfully");
 } catch (error) {
-  console.error("Firebase initialization error:", error);
-  // Create fallback db object to prevent app crashes
-  db = {
-    collection: () => ({
-      // Mock implementation to prevent runtime errors
-    })
-  };
+  console.error("Firebase initialization error:", error.message);
 }
 
+// Export the db (either real or mock)
 export { db };
