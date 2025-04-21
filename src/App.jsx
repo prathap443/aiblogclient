@@ -1,19 +1,7 @@
 // src/App.jsx
-import { useEffect, useState } from "react";
-import { db } from "./firebase";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  serverTimestamp,
-  query,
-  orderBy,
-} from "firebase/firestore";
+import { useState } from "react";
 
-// Remove this import as it's already imported in main.jsx
-// import "./style.css";
+// Remove any Firebase imports
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -21,34 +9,14 @@ function App() {
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const postsCollection = collection(db, "posts");
-
-  const fetchPosts = async () => {
-    setLoading(true);
-    try {
-      const q = query(postsCollection, orderBy("createdAt", "desc"));
-      const snapshot = await getDocs(q);
-      const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setPosts(data);
-    } catch (err) {
-      console.error("Error fetching posts:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const handleSubmit = async (e) => {
+  // Demo function - doesn't use Firebase
+  const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
-    setSubmitting(true);
-
+    
     const newErrors = {};
     if (!title.trim()) newErrors.title = "Title is required";
     if (!summary.trim()) newErrors.summary = "Summary is required";
@@ -56,40 +24,27 @@ function App() {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      setSubmitting(false);
       return;
     }
 
-    try {
-      const docRef = await addDoc(postsCollection, {
-        title,
-        summary,
-        content,
-        createdAt: serverTimestamp(),
-      });
-
-      setPosts([{ id: docRef.id, title, summary, content }, ...posts]);
-      setTitle("");
-      setSummary("");
-      setContent("");
-      alert("Post created successfully!");
-    } catch (err) {
-      console.error("Error adding document:", err);
-      alert("Failed to create post");
-    } finally {
-      setSubmitting(false);
-    }
+    // Create a local post instead of using Firebase
+    const newPost = {
+      id: Date.now().toString(),
+      title,
+      summary,
+      content,
+      createdAt: new Date().toISOString()
+    };
+    
+    setPosts([newPost, ...posts]);
+    setTitle("");
+    setSummary("");
+    setContent("");
   };
 
-  const deletePost = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this post?")) return;
-    try {
-      await deleteDoc(doc(db, "posts", id));
-      setPosts(posts.filter((p) => p.id !== id));
-    } catch (err) {
-      console.error("Delete error:", err);
-      alert("Failed to delete post");
-    }
+  const deletePost = (id) => {
+    // Don't use window.confirm which might cause SSR issues
+    setPosts(posts.filter(p => p.id !== id));
   };
 
   return (
