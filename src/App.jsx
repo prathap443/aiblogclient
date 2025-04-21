@@ -11,7 +11,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import bg from "./assets/bg.jpg";
+//import bg from "./assets/bg.jpg";
 import "./style.css";
 
 function App() {
