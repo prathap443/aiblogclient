@@ -1,4 +1,4 @@
-// src/App.jsx (Styled with background and layout)
+// src/App.jsx
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
 import {
@@ -9,8 +9,9 @@ import {
   doc,
   serverTimestamp,
   query,
-  orderBy
+  orderBy,
 } from "firebase/firestore";
+import bg from "./assets/bg.jpg";
 import "./style.css";
 
 function App() {
@@ -63,7 +64,7 @@ function App() {
         title,
         summary,
         content,
-        createdAt: serverTimestamp()
+        createdAt: serverTimestamp(),
       });
 
       setPosts([{ id: docRef.id, title, summary, content }, ...posts]);
@@ -91,11 +92,20 @@ function App() {
   };
 
   return (
-    <div className="app-background">
+    <div
+      className="app-background"
+      style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        minHeight: "100vh",
+      }}
+    >
       <div className="container">
         <h1 className="title">🧠 Prathap's AI Blog</h1>
 
-        <form className="post-form" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="post-form">
           <input
             placeholder="Title"
             value={title}
