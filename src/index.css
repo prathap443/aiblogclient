@@ -23,14 +23,13 @@ a:hover {
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f0f2f5; /* Fallback color */
-  background-image: url("/bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  /* Remove the flex display, height constraints from default Vite */
+  background-color: #f0f2f5; /* Only use a solid color for now */
+  /* Remove background image temporarily */
+  /* background-image: url("/bg.jpg"); */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* background-attachment: fixed; */
   min-width: 320px;
-  /* Let the content flow naturally */
   display: block;
   min-height: 100vh;
 }
