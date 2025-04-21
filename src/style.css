@@ -1,7 +1,12 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
+  background-image: url("/bg.jpg"); /* assuming bg.jpg is in /public */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
+
 
 .app-background {
   padding: 2rem;
