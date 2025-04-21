@@ -1,4 +1,4 @@
-// src/App.jsx (Firebase version)
+// src/App.jsx (Styled with background and layout)
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
 import {
@@ -11,6 +11,7 @@ import {
   query,
   orderBy
 } from "firebase/firestore";
+import "./style.css";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -90,53 +91,54 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "Segoe UI", maxWidth: 800, margin: "0 auto" }}>
-      <h1>🧠 Prathap's AI Blog</h1>
+    <div className="app-background">
+      <div className="container">
+        <h1 className="title">🧠 Prathap's AI Blog</h1>
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
-        <input
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          style={{ display: "block", width: "100%", marginBottom: "1rem" }}
-        />
-        {errors.title && <p style={{ color: "red" }}>{errors.title}</p>}
+        <form className="post-form" onSubmit={handleSubmit}>
+          <input
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          {errors.title && <p className="error">{errors.title}</p>}
 
-        <input
-          placeholder="Summary"
-          value={summary}
-          onChange={(e) => setSummary(e.target.value)}
-          style={{ display: "block", width: "100%", marginBottom: "1rem" }}
-        />
-        {errors.summary && <p style={{ color: "red" }}>{errors.summary}</p>}
+          <input
+            placeholder="Summary"
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
+          />
+          {errors.summary && <p className="error">{errors.summary}</p>}
 
-        <textarea
-          placeholder="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          style={{ display: "block", width: "100%", minHeight: 100, marginBottom: "1rem" }}
-        />
-        {errors.content && <p style={{ color: "red" }}>{errors.content}</p>}
+          <textarea
+            placeholder="Content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+          {errors.content && <p className="error">{errors.content}</p>}
 
-        <button type="submit" disabled={submitting}>
-          {submitting ? "Creating..." : "Create Post"}
-        </button>
-      </form>
+          <button type="submit" disabled={submitting}>
+            {submitting ? "Creating..." : "Create Post"}
+          </button>
+        </form>
 
-      {loading ? (
-        <p>Loading posts...</p>
-      ) : posts.length === 0 ? (
-        <p>No posts yet. Start writing!</p>
-      ) : (
-        posts.map((post) => (
-          <div key={post.id} style={{ padding: "1rem", borderBottom: "1px solid #ddd" }}>
-            <h3>{post.title}</h3>
-            <p><strong>{post.summary}</strong></p>
-            <p>{post.content}</p>
-            <button onClick={() => deletePost(post.id)}>🗑️ Delete</button>
-          </div>
-        ))
-      )}
+        <div className="posts">
+          {loading ? (
+            <p>Loading posts...</p>
+          ) : posts.length === 0 ? (
+            <p>No posts yet. Start writing!</p>
+          ) : (
+            posts.map((post) => (
+              <div key={post.id} className="post">
+                <h3>{post.title}</h3>
+                <p className="summary">{post.summary}</p>
+                <p>{post.content}</p>
+                <button onClick={() => deletePost(post.id)}>🗑️ Delete</button>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 }
