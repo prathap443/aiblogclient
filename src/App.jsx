@@ -11,7 +11,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-//import bg from "./assets/bg.jpg";
+
 import "./style.css";
 
 function App() {
@@ -92,16 +92,7 @@ function App() {
   };
 
   return (
-    <div
-      className="app-background"
-      style={{
-        backgroundImage: `url(${bg})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        minHeight: "100vh",
-      }}
-    >
+    <div className="app-background">
       <div className="container">
         <h1 className="title">🧠 Prathap's AI Blog</h1>
 
