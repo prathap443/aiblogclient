@@ -9,7 +9,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
-    minify: 'terser',
+    // Remove minify: 'terser'
+    minify: true, // Use default minifier instead
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
